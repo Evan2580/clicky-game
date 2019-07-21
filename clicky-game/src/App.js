@@ -6,7 +6,7 @@ import Navbar from "./components/NavBar"
 import pictures from "./pictures.json";
 
 class App extends Component {
-  // Setting this.state.friends to the friends json array
+
   state = {
     pictures:pictures,
     clickedPic: [],
@@ -14,11 +14,11 @@ class App extends Component {
   };
 
   imageClick = event => {
-    const currentPic = event.target.alt;
+    const currentPic = event.id;
     const clickedPic =
       this.state.clickedPic.indexOf(currentPic) > -1;
 
-    //if you click on a cat that has already been selected, the game is reset and cards reordered
+
     if (clickedPic) {
       this.setState({
         pictures: this.state.pictures.sort(function (a, b) {
@@ -27,9 +27,9 @@ class App extends Component {
         clickedPic: [],
         score: 0
       });
-      alert("You lose. Play again?");
+      alert("Nope, Play again?");
 
-      //if you click on an available cat, your score is increased and cards reordered
+
     } else {
       this.setState(
         {
@@ -41,10 +41,10 @@ class App extends Component {
           ),
           score: this.state.score + 1
         },
-        //if you get all 12 cat corrent you get a congrats message and the game resets
+
         () => {
           if (this.state.score === 12) {
-            alert("Yay! You Win!");
+            alert("Winner!");
             this.setState({
               pictures: this.state.pictures.sort(function (a, b) {
                 return 0.5 - Math.random();
@@ -57,7 +57,7 @@ class App extends Component {
       );
     }
   }
-  // Map over this.state.friends and render a FriendCard component for each friend object
+
   render() {
     return (
       <Wrapper>
@@ -70,6 +70,7 @@ class App extends Component {
             id={pictures.id}
             key={pictures.id}
             image={pictures.image}
+            imageClick={this.imageClick}
             clickedPic={pictures.clickedPic}
           />
         ))}
