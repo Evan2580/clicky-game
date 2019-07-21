@@ -5,8 +5,8 @@ class Navbar extends Component {
     return (
       <nav className="navbar navbar-default navbar-fixed-top">
          <ul>
-          <li className="itemLeft">Test Your Memory</li>
-          <li className="itemCenter"></li>
+          <li className="itemLeft">Click to see how much you remember</li>
+          <li className="itemCenter">Best Score: {this.props.bestscore}</li>
           <li className="itemRight">Score: {this.props.score}</li>
         </ul>
       </nav>

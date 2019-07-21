@@ -10,13 +10,16 @@ class App extends Component {
   state = {
     pictures:pictures,
     clickedPic: [],
-    score: 0
+    score: 0,
+    bestscore: 0
   };
 
   imageClick = event => {
-    const currentPic = event.id;
+    const currentPic = event;
     const clickedPic =
       this.state.clickedPic.indexOf(currentPic) > -1;
+    let bestscore = this.state.bestscore;
+    let score = this.state.score;
 
 
     if (clickedPic) {
@@ -31,6 +34,11 @@ class App extends Component {
 
 
     } else {
+      score +=1
+      if (score > bestscore){
+       bestscore = score;
+      }
+
       this.setState(
         {
           pictures: this.state.pictures.sort(function (a, b) {
@@ -39,7 +47,14 @@ class App extends Component {
           clickedPic: this.state.clickedPic.concat(
             currentPic
           ),
-          score: this.state.score + 1
+          score:score,
+          bestscore:bestscore,
+
+            // bestscore: ()  => {
+            //   if (score > bestscore){
+            //     return score;
+            //   }
+            // }
         },
 
         () => {
@@ -55,6 +70,10 @@ class App extends Component {
           }
         }
       );
+
+      if (score > bestscore){
+        bestscore = score;
+      }
     }
   }
 
@@ -63,6 +82,7 @@ class App extends Component {
       <Wrapper>
         <Navbar
           score={this.state.score}
+          bestscore={this.state.bestscore}
         />
         <Title>Clicky Game</Title>
         {this.state.pictures.map(pictures => (
